@@ -1,0 +1,30 @@
+
+nav{
+    display: flex;
+    width: var(--width-max);
+    background-color: var(--Color-1);
+    justify-content: space-around;
+    align-items: center;
+    height: 12vh;
+}
+
+nav ul{
+    display: flex;
+    list-style: none;
+}
+nav ul li a{
+    margin-left: 15px;
+    font-weight: bold;
+    color: var(--Color-2);
+    font-family:"Montserrat";
+    text-decoration: none;
+}
+.active{
+    background-color: var(--Color-2);
+    color: var(--Color-1);
+    padding: 5px;
+    border-radius: 10px;
+}
+.ocultar{
+    display: none;
+}

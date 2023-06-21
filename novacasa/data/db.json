@@ -1,0 +1,78 @@
+{
+  "usuario": [
+    {
+      "id": 1,
+      "displayName": "Gabriel",
+      "password": "@dmin"
+    },
+    {
+      "displayName": "Gabriel",
+      "password": "dmin",
+      "id": 2
+    },
+    {
+      "displayName": "BIELBARRS",
+      "password": "1234",
+      "id": 3
+    },
+    {
+      "displayName": "Gustavo",
+      "password": "12345",
+      "id": 4
+    },
+    {
+      "displayName": "joão",
+      "password": "@",
+      "id": 5
+    }
+  ],
+  "instituicao": [
+    {
+      "nome": "Nova-Casa",
+      "fone": "98746321",
+      "id": 1
+    },
+    {
+      "nome": "CRIO",
+      "fone": "9999999999",
+      "id": 2
+    },
+    {
+      "nome": "Jp Barbearia",
+      "fone": "123456789",
+      "id": 3
+    }
+  ],
+  "pontodevendas": [
+    {
+      "id": 1,
+      "nome": "Bazar"
+    },
+    {
+      "nome": "Loja",
+      "id": 2
+    },
+    {
+      "nome": "Trailer",
+      "id": 3
+    },
+    {
+      "nome": "Casa de Apoio",
+      "id": 4
+    }
+  ],
+  "pagamento": [
+    {
+      "id": 1,
+      "nome": "Pix"
+    },
+    {
+      "nome": "Cartão",
+      "id": 2
+    },
+    {
+      "nome": "Boleto",
+      "id": 3
+    }
+  ]
+}

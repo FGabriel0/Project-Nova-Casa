@@ -1,0 +1,24 @@
+.rotate{
+    transform: rotate(180deg);
+}
+.dashboard{
+    position: fixed;
+    z-index: 99;
+    width: 15rem;
+    height: 100vh;
+    background-color: #4c4f57;
+    left: 0rem;
+    transition: all 1s;
+}
+.item{
+   justify-content: center;
+   flex-direction: column;
+   text-align: center;
+   margin-top: 10px;
+}
+.item li a{
+    color: #fff;
+    text-decoration: none;
+    list-style: none;
+    font-family: var(--font-Josefin-Sans);
+}
