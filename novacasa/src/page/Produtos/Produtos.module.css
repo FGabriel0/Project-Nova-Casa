@@ -28,6 +28,17 @@
     border: solid 1px #000;
 
 }
+.select{
+    display: flex;
+    justify-content: space-around;
+}
+.label_select{
+    font-family: var(--font-Josefin-Sans);
+    font-weight: bold;
+}
+.label_select select{
+    margin-top: 15px;
+}
 .loading{
     text-align: center;
     font-family: var(--font-Montserrat);
@@ -54,7 +65,7 @@ table .title_table{
 }
 table, td,tr{
     border: solid 1px #000;
-    padding: 10px;
+    padding: 0px;
 }
 .icons{
     width: 10%;

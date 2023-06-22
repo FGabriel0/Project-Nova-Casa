@@ -66,6 +66,7 @@ export const useFetch = (url) => {
     };
 
     fetchData();
+  
   }, [url, callFetch]);
 
   //   Refatorando Post

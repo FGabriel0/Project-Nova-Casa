@@ -13,6 +13,13 @@ import TablePontodeVendas from "./page/PontodeVendas/TablePontodeVendas";
 import EditTablePontodeVendas from "./page/PontodeVendas/EditTablePontodeVendas";
 import TablePagamento from "./page/Pagamento/TablePagamentos";
 import EditPagamento from "./page/Pagamento/EditPagamento";
+import Produtos from "./page/Produtos/Produtos";
+import Transferencias from "./page/Transferencias/Transferencias";
+import NewInstituicao from "./page/instituicao/NewInstituicao";
+import NewPagamento from "./page/Pagamento/NewPagamento";
+import NewPontodeVendas from "./page/PontodeVendas/NewPontodeVendas";
+import NewProduto from "./page/Produtos/NewProduto";
+import NewTransferencia from "./page/Transferencias/NewTransferencia";
 
 function App() {
   return (
@@ -21,15 +28,21 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/instituicao" element={<Instituicao />} />
+        <Route path="/newInstituicao" element={<NewInstituicao/>}/>
         <Route path="/instituicao/:id" element={<EditInstituicao />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastrar" element={<Cadastra />} />
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/pointofsales" element={<TablePontodeVendas />} />
         <Route path="/pointofsales/:id" element={<EditTablePontodeVendas />} />
+        <Route path="/newPontodeVendas" element={<NewPontodeVendas/>}/>
         <Route path="/pagamento" element={<TablePagamento />} />
         <Route path="/pagamento/:id" element={<EditPagamento/>} />
-
+        <Route path="/newPagamento" element={<NewPagamento/>}/>
+        <Route path="/produtos" element={<Produtos/>}/>
+        <Route path="/newProduto" element={<NewProduto/>}/>
+        <Route path="/transferencia" element={<Transferencias/>}/>
+        <Route path="/newTranferencia" element={<NewTransferencia/>}/>
       </Routes>
     </BrowserRouter>
   );

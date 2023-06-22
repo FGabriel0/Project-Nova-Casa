@@ -14,22 +14,12 @@
       "displayName": "BIELBARRS",
       "password": "1234",
       "id": 3
-    },
-    {
-      "displayName": "Gustavo",
-      "password": "12345",
-      "id": 4
-    },
-    {
-      "displayName": "joão",
-      "password": "@",
-      "id": 5
     }
   ],
   "instituicao": [
     {
       "nome": "Nova-Casa",
-      "fone": "98746321",
+      "fone": "99999999",
       "id": 1
     },
     {
@@ -73,6 +63,72 @@
     {
       "nome": "Boleto",
       "id": 3
+    },
+    {
+      "nome": "BOLETO",
+      "id": 4
+    }
+  ],
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Pão",
+      "vendavel": "sim",
+      "pontodevendas": "Loja"
+    },
+    {
+      "nome": "Blusa",
+      "vendavel": "Não",
+      "pontodevendas": "Loja",
+      "id": 2
+    },
+    {
+      "nome": "Chocolate",
+      "vendavel": "Sim",
+      "pontodevendas": "Trailer",
+      "id": 3
+    },
+    {
+      "nome": "Chinelo",
+      "vendavel": "Sim",
+      "pontodevendas": "Loja",
+      "id": 4
+    },
+    {
+      "nome": "Tapioca",
+      "vendavel": "Sim",
+      "pontodevendas": "Trailer",
+      "id": 5
+    }
+  ],
+  "transferencia": [
+    {
+      "id": 1,
+      "description": "Entrada por meio da compra",
+      "checkboxValues": [
+        "Saida"
+      ]
+    },
+    {
+      "description": "Saida pela loja",
+      "checkboxValues": [
+        "Saida"
+      ],
+      "id": 2
+    },
+    {
+      "description": "Gabriel",
+      "checkboxValues": [
+        "Entrada"
+      ],
+      "id": 3
+    },
+    {
+      "description": "Saida de Estoque",
+      "checkboxValues": [
+        "Saida"
+      ],
+      "id": 4
     }
   ]
 }

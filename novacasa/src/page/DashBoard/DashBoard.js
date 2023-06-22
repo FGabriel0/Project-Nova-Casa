@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 import { IoIosArrowUp } from "react-icons/io";
 
-
 import style from "./DashBoard.module.css";
 
 const DashBoard = () => {
@@ -20,7 +19,13 @@ const DashBoard = () => {
       <div className={style.items}>
         <ul>
           <li>
-            <button className="dropdownToggle" onClick={handlerConfig}>
+            <button className={style.btnDashboard}>
+              Todos os Usuários
+            </button>
+          </li>
+          <hr/>
+          <li>
+            <button className={style.btnDashboard} onClick={handlerConfig}>
               Configurações Básicas
               <IoIosArrowUp
                 className={`${style.arrow}  ${openConfig ? style.rotate : ""}`}
@@ -30,10 +35,26 @@ const DashBoard = () => {
               <ul className={style.item}>
                 <li>
                   <NavLink
+                    to="/transferencia"
+                    className={({ isActive }) => (isActive ? style.active : "")}
+                  >
+                    Transferências
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/produtos"
+                    className={({ isActive }) => (isActive ? style.active : "")}
+                  >
+                    Tipos de Produtos
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
                     to="/instituicao"
                     className={({ isActive }) => (isActive ? style.active : "")}
                   >
-                   Instituição 
+                    Instituição
                   </NavLink>
                 </li>
                 <li>
@@ -41,7 +62,7 @@ const DashBoard = () => {
                     to="/pointofsales"
                     className={({ isActive }) => (isActive ? style.active : "")}
                   >
-                   Pontos de Vendas
+                    Pontos de Vendas
                   </NavLink>
                 </li>
                 <li>
@@ -49,7 +70,7 @@ const DashBoard = () => {
                     to="/pagamento"
                     className={({ isActive }) => (isActive ? style.active : "")}
                   >
-                   Método de Pagamentos
+                    Método de Pagamentos
                   </NavLink>
                 </li>
               </ul>

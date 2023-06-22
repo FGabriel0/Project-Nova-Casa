@@ -1,19 +1,17 @@
-import React from "react";
-import style from "./instituicao.module.css";
-
+import React, { useState } from "react";
+import style from "./Transferencias.module.css";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-
-import { useState} from "react";
 import { Link } from "react-router-dom";
-
 import { useFetch } from "../../hooks/useFetch";
 
-const url = "http://localhost:3000/instituicao";
+const url = "http://localhost:3000/transferencia";
 
-const Instituicao = () => {
-
+const Transferencias = () => {
   const { data: items, httpConfig, loading, error } = useFetch(url);
+
+
+  const [transferencias, setTransferencias] = useState([]);
 
   const [InputPesquise, setInputPesquise] = useState(false);
 
@@ -24,7 +22,10 @@ const Instituicao = () => {
   function handlerRemove(id) {
     const sair = window.confirm("Deseja Realmente Deletar essa Instituição?");
     if (sair) {
-      window.location.reload()
+      const updatedTransferencias = transferencias.filter(
+        (transferencia) => transferencia.id !== id
+      );
+      setTransferencias(updatedTransferencias);
       return httpConfig(id, "DELETE");
     }
   }
@@ -35,8 +36,10 @@ const Instituicao = () => {
         <h1>Instituição - Pesquisa</h1>
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>
-        <button className={style.btn}><Link to='/newInstituicao'>Novo</Link></button>
-        <button>Limpar</button>   
+        <button className={style.btn}>
+          <Link to="/newTranferencia">Novo</Link>
+        </button>
+        <button>Limpar</button>
         {InputPesquise && (
           <form>
             <label>
@@ -64,26 +67,46 @@ const Instituicao = () => {
             </thead>
             <tbody>
               {items &&
-                items.map((Instituicao) => (
-                  <tr key={Instituicao.id}>
-                    <td>{Instituicao.id}</td>
-                    <td>{Instituicao.nome}</td>
-                    <td>{Instituicao.fone}</td>
+                items.map((transferencia) => (
+                  <tr key={transferencia.id}>
+                    <td>{transferencia.id}</td>
+                    <td>{transferencia.description}</td>
+                    <td>{transferencia.checkboxValues}</td>
                     <td className={style.icons}>
                       <button
                         className={style.delete}
-                        onClick={() => handlerRemove(Instituicao.id)}
+                        onClick={() => handlerRemove(transferencia.id)}
                       >
                         <AiFillDelete />
                       </button>
                       <button>
-                        <Link to={`/instituicao/${Instituicao.id}`}>
+                        <Link to={`/transferencia/${transferencia.id}`}>
                           <AiFillEdit />
                         </Link>
                       </button>
                     </td>
                   </tr>
                 ))}
+              {/* {transferencias.map((transferencia) => (
+                <tr key={transferencia.id}>
+                  <td>{transferencia.id}</td>
+                  <td>{transferencia.description}</td>
+                  <td>{transferencia.checkboxValues}</td>
+                  <td className={style.icons}>
+                      <button
+                        className={style.delete}
+                        onClick={() => handlerRemove(transferencia.id)}
+                      >
+                        <AiFillDelete />
+                      </button>
+                      <button>
+                        <Link to={`/transferencia/${transferencia.id}`}>
+                          <AiFillEdit />
+                        </Link>
+                      </button>
+                    </td>
+                </tr>
+              ))} */}
             </tbody>
             <tfoot>
               <tr>
@@ -97,4 +120,4 @@ const Instituicao = () => {
   );
 };
 
-export default Instituicao;
+export default Transferencias;

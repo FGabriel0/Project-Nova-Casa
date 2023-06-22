@@ -30,17 +30,7 @@ const TablePontodeVendas = () => {
     setInputNovo(true);
   }
 
-  const handlerSubmit = async (e) =>{
-    e.preventDefault()
 
-    const pagamento ={
-      nome
-    }
-
-    httpConfig(pagamento,"POST");
-
-    setNome("")
-  }
 
   function handlerRemove(id) {
     const sair = window.confirm("Deseja Realmente Deletar esse Ponto de Vendas?");
@@ -56,33 +46,9 @@ const TablePontodeVendas = () => {
         <h1>Métodos de Pagamento - Pesquisa</h1>
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>
-        <button onClick={handlerInputNovo}>Novo</button>
+        <button className={style.btn}><Link to='/newPagamento'>Novo</Link></button>
         <button>Limpar</button>
-        {InputNovo && (
-          <form onSubmit={handlerSubmit}>
-            <label>
-              Nome:
-              <input
-                type="text"
-                value={nome}
-                placeholder="Digite o nome do Pagamento:"
-                required
-                onChange={(e) => setNome(e.target.value)}
-              />
-            </label>
-            {loading && (
-              <input
-                type="submit"
-                value="Aguarde"
-                className={style.btn}
-                disabled
-              />
-            )}
-            {!loading && (
-              <input type="submit" value="Salvar" className={style.btn} />
-            )}
-          </form>
-        )}
+       
         {InputPesquise && (
           <form>
             <label>

@@ -48,6 +48,13 @@ input,textarea{
   background-color: transparent;
 }
 
+select{
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: .8em 0;
+  background-color: transparent;
+}
 .btn{
   background-color: var(--Color-1);
   color: #fff;

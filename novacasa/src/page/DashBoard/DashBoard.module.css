@@ -1,6 +1,9 @@
 .rotate{
     transform: rotate(180deg);
 }
+.arrow{
+    margin-left: 10px;
+}
 .dashboard{
     position: fixed;
     z-index: 99;
@@ -10,15 +13,36 @@
     left: 0rem;
     transition: all 1s;
 }
+.btnDashboard{
+    background-color: #4c4f57;   
+    border-radius: none; 
+    margin-right: 10px;
+}
+.btnDashboard:is(:hover, :focus){
+    border-radius: 0px;
+    background-color: #4c4f57;
+    border: transparent;
+    color: var(--Color-1);
+}
 .item{
    justify-content: center;
    flex-direction: column;
-   text-align: center;
    margin-top: 10px;
+   margin-left: 15px;
+}
+.item li{
+    list-style: none;
+    margin-top: 10px;
+}
+.item li .active{
+    color: var(--Color-1);
 }
 .item li a{
     color: #fff;
     text-decoration: none;
     list-style: none;
     font-family: var(--font-Josefin-Sans);
+}
+.dropdownToggle{
+    background-color: transparent;
 }
