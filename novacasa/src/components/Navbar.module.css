@@ -28,3 +28,8 @@ nav ul li a{
 .ocultar{
     display: none;
 }
+.icon{
+    color: var(--Color-2);
+    font-size: 25px;
+    margin-top: -5px;
+}

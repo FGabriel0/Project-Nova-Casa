@@ -2,7 +2,7 @@
     transform: rotate(180deg);
 }
 .arrow{
-    margin-left: 10px;
+   margin-top: 2px;
 }
 .dashboard{
     position: fixed;
@@ -16,7 +16,7 @@
 .btnDashboard{
     background-color: #4c4f57;   
     border-radius: none; 
-    margin-right: 10px;
+    
 }
 .btnDashboard:is(:hover, :focus){
     border-radius: 0px;
@@ -45,4 +45,28 @@
 }
 .dropdownToggle{
     background-color: transparent;
+}
+.box{
+    display: flex;
+    padding: 10px;
+}
+.card1{
+    background-color: green;
+    width: 100%;
+    border-radius: 10px;
+    
+}
+.card2{
+    border-radius: 10px;
+    background-color: yellow;
+    width: 100%;
+
+}
+
+.container{
+overflow: hidden;
+height: 30vh;
+display: flex;
+flex-direction: row;
+justify-content: center;
 }

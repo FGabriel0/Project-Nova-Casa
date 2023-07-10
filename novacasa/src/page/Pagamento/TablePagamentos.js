@@ -25,13 +25,7 @@ const TablePontodeVendas = () => {
     setInputPesquise(true);
   }
 
-  function handlerInputNovo() {
-    setInputPesquise(false);
-    setInputNovo(true);
-  }
-
-
-
+  
   function handlerRemove(id) {
     const sair = window.confirm("Deseja Realmente Deletar esse Ponto de Vendas?");
     if (sair) {
@@ -96,9 +90,7 @@ const TablePontodeVendas = () => {
                 ))}
             </tbody>
             <tfoot>
-              <tr>
-                <FaArrowLeft /> 1 <FaArrowRight />
-              </tr>
+                <FaArrowLeft /> 1 <FaArrowRight />          
             </tfoot>
           </table>
         )}

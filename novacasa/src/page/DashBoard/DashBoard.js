@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import axios from 'axios';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope,faGear,faCoins,faArrowRightArrowLeft,faNetworkWired} from '@fortawesome/free-solid-svg-icons'
+
 import { NavLink } from "react-router-dom";
 
 import { IoIosArrowUp } from "react-icons/io";
@@ -6,12 +11,32 @@ import { IoIosArrowUp } from "react-icons/io";
 import style from "./DashBoard.module.css";
 
 const DashBoard = () => {
+  const [elementCount, setElementCount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/usuario');
+        const data = response.data;
+        const count = data.length;
+        setElementCount(count);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const [openConfig, setOpenConfig] = useState(false);
 
   function handlerConfig() {
     setOpenConfig(!openConfig);
   }
   return (
+    <div className={style.container}>
+
+      
     <aside className={style.dashboard}>
       <div>
         <h3>Usuário</h3>
@@ -20,14 +45,14 @@ const DashBoard = () => {
         <ul>
           <li>
             <button className={style.btnDashboard}>
-              Todos os Usuários
+              <FontAwesomeIcon icon={faEnvelope}/> Todos os Usuários
             </button>
           </li>
           <hr/>
           <li>
             <button className={style.btnDashboard} onClick={handlerConfig}>
-              Configurações Básicas
-              <IoIosArrowUp
+            <FontAwesomeIcon icon={faGear}/> Configurações Básicas
+            <IoIosArrowUp
                 className={`${style.arrow}  ${openConfig ? style.rotate : ""}`}
               />
             </button>
@@ -38,7 +63,7 @@ const DashBoard = () => {
                     to="/transferencia"
                     className={({ isActive }) => (isActive ? style.active : "")}
                   >
-                    Transferências
+                    <FontAwesomeIcon icon={faArrowRightArrowLeft} /> Transferências
                   </NavLink>
                 </li>
                 <li>
@@ -46,7 +71,7 @@ const DashBoard = () => {
                     to="/produtos"
                     className={({ isActive }) => (isActive ? style.active : "")}
                   >
-                    Tipos de Produtos
+                     Tipos de Produtos
                   </NavLink>
                 </li>
                 <li>
@@ -54,7 +79,7 @@ const DashBoard = () => {
                     to="/instituicao"
                     className={({ isActive }) => (isActive ? style.active : "")}
                   >
-                    Instituição
+                     Instituição
                   </NavLink>
                 </li>
                 <li>
@@ -62,7 +87,7 @@ const DashBoard = () => {
                     to="/pointofsales"
                     className={({ isActive }) => (isActive ? style.active : "")}
                   >
-                    Pontos de Vendas
+                   <FontAwesomeIcon icon={faNetworkWired} /> Pontos de Vendas
                   </NavLink>
                 </li>
                 <li>
@@ -70,7 +95,7 @@ const DashBoard = () => {
                     to="/pagamento"
                     className={({ isActive }) => (isActive ? style.active : "")}
                   >
-                    Método de Pagamentos
+                    <FontAwesomeIcon icon={faCoins} /> Método de Pagamentos
                   </NavLink>
                 </li>
               </ul>
@@ -79,6 +104,7 @@ const DashBoard = () => {
         </ul>
       </div>
     </aside>
+    </div>
   );
 };
 

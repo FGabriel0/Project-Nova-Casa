@@ -65,7 +65,7 @@
       "id": 3
     },
     {
-      "nome": "BOLETO",
+      "nome": "Dinheiro",
       "id": 4
     }
   ],
@@ -129,6 +129,13 @@
         "Saida"
       ],
       "id": 4
+    },
+    {
+      "description": "eeeee",
+      "checkboxValues": [
+        "Entrada"
+      ],
+      "id": 5
     }
   ]
 }
