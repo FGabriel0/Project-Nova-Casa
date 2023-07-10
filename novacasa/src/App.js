@@ -2,6 +2,8 @@ import "./App.css";
 import Instituicao from "./page/instituicao/Instituicao";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { NavBarProvider } from "./context/NavBarContext";
+
 import Navbar from "./components/Navbar";
 import Home from "./page/Home";
 import EditInstituicao from "./page/instituicao/EditInstituicao";
@@ -23,28 +25,33 @@ import NewTransferencia from "./page/Transferencias/NewTransferencia";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/instituicao" element={<Instituicao />} />
-        <Route path="/newInstituicao" element={<NewInstituicao/>}/>
-        <Route path="/instituicao/:id" element={<EditInstituicao />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastrar" element={<Cadastra />} />
-        <Route path="/dashboard" element={<DashBoard />} />
-        <Route path="/pointofsales" element={<TablePontodeVendas />} />
-        <Route path="/pointofsales/:id" element={<EditTablePontodeVendas />} />
-        <Route path="/newPontodeVendas" element={<NewPontodeVendas/>}/>
-        <Route path="/pagamento" element={<TablePagamento />} />
-        <Route path="/pagamento/:id" element={<EditPagamento/>} />
-        <Route path="/newPagamento" element={<NewPagamento/>}/>
-        <Route path="/produtos" element={<Produtos/>}/>
-        <Route path="/newProduto" element={<NewProduto/>}/>
-        <Route path="/transferencia" element={<Transferencias/>}/>
-        <Route path="/newTranferencia" element={<NewTransferencia/>}/>
-      </Routes>
-    </BrowserRouter>
+    <NavBarProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/instituicao" element={<Instituicao />} />
+          <Route path="/newInstituicao" element={<NewInstituicao />} />
+          <Route path="/instituicao/:id" element={<EditInstituicao />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastrar" element={<Cadastra />} />
+          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/pointofsales" element={<TablePontodeVendas />} />
+          <Route
+            path="/pointofsales/:id"
+            element={<EditTablePontodeVendas />}
+          />
+          <Route path="/newPontodeVendas" element={<NewPontodeVendas />} />
+          <Route path="/pagamento" element={<TablePagamento />} />
+          <Route path="/pagamento/:id" element={<EditPagamento />} />
+          <Route path="/newPagamento" element={<NewPagamento />} />
+          <Route path="/produtos" element={<Produtos />} />
+          <Route path="/newProduto" element={<NewProduto />} />
+          <Route path="/transferencia" element={<Transferencias />} />
+          <Route path="/newTranferencia" element={<NewTransferencia />} />
+        </Routes>
+      </BrowserRouter>
+    </NavBarProvider>
   );
 }
 

@@ -1,15 +1,17 @@
-import React from "react";
 import style from "./Navbar.module.css";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
 
 import imgBanner from "../assets/img/logo-nossa-casa.png.png";
-import { useLocation, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { NavBarContext } from "../context/NavBarContext";
 
 const Navbar = () => {
-  const location = useLocation();
+  const { showNavbar, isDashboard } = useContext(NavBarContext);
 
+  if (!showNavbar || isDashboard) {
+    return null; 
+  }
+  
   return (
     <div className={style.container}>
       <nav className={style.Navbar}>
@@ -17,64 +19,32 @@ const Navbar = () => {
           <img src={imgBanner} alt="logo" />
         </div>
         <div className={style.links_list}>
-          {location.pathname === "/" ||
-          location.pathname === "/Consulta" ||
-          location.pathname === "/admistrativo" ||
-          location.pathname === "/login" ? (
-            <ul>
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/Consulta"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  Consulta
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/admistrativo"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  admistrativo
-                </NavLink>
-              </li>
-            </ul>
-          ) : (
-            <ul>
-              <li>
-                <NavLink
-                  to="/dashboard"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  DashBoard
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/email"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  <FontAwesomeIcon className={style.icon} icon={faEnvelope} />
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  Fechar
-                </NavLink>
-              </li>
-            </ul>
-          )}
+          <ul>
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) => (isActive ? style.active : "")}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/Consulta"
+                className={({ isActive }) => (isActive ? style.active : "")}
+              >
+                Consulta
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admistrativo"
+                className={({ isActive }) => (isActive ? style.active : "")}
+              >
+                admistrativo
+              </NavLink>
+            </li>
+          </ul>
         </div>
       </nav>
     </div>

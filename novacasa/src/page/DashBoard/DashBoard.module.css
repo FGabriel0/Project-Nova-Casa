@@ -1,72 +1,54 @@
-.rotate{
-    transform: rotate(180deg);
-}
-.arrow{
-   margin-top: 2px;
-}
-.dashboard{
-    position: fixed;
-    z-index: 99;
-    width: 15rem;
-    height: 100vh;
-    background-color: #4c4f57;
-    left: 0rem;
-    transition: all 1s;
-}
-.btnDashboard{
-    background-color: #4c4f57;   
-    border-radius: none; 
-    
-}
-.btnDashboard:is(:hover, :focus){
-    border-radius: 0px;
-    background-color: #4c4f57;
-    border: transparent;
-    color: var(--Color-1);
-}
-.item{
-   justify-content: center;
-   flex-direction: column;
-   margin-top: 10px;
-   margin-left: 15px;
-}
-.item li{
-    list-style: none;
-    margin-top: 10px;
-}
-.item li .active{
-    color: var(--Color-1);
-}
-.item li a{
-    color: #fff;
-    text-decoration: none;
-    list-style: none;
-    font-family: var(--font-Josefin-Sans);
-}
-.dropdownToggle{
-    background-color: transparent;
-}
-.box{
-    display: flex;
-    padding: 10px;
-}
-.card1{
-    background-color: green;
-    width: 100%;
-    border-radius: 10px;
-    
-}
-.card2{
-    border-radius: 10px;
-    background-color: yellow;
-    width: 100%;
-
-}
-
 .container{
-overflow: hidden;
-height: 30vh;
-display: flex;
-flex-direction: row;
-justify-content: center;
+    background-color: #eeefef;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+
 }
+.sidebarOpen {
+    transform: translateX(0px);
+  }
+
+.navbar{
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin-right: 1.5rem;
+    margin-top: 1.5rem;
+    min-height: 60px;
+    height: 6%;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+    transition: transform 0.3s ease-in-out;
+
+}
+.contentOpen {
+    transform: translateX(15px);
+  }
+
+.line{
+    width: 100%;
+    background-color:var(--Color-2);
+    height:10px;
+    margin-top:5px;
+    box-shadow:var(--box-shadow);
+    transition:transform 1s
+  }
+  
+  .hamburguer{
+    width:30px;
+    height: 25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-evenly;
+    cursor:pointer;
+  }
+
+
+

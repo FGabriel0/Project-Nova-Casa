@@ -1,109 +1,55 @@
-import React, { useState,useEffect } from "react";
-import axios from 'axios';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope,faGear,faCoins,faArrowRightArrowLeft,faNetworkWired} from '@fortawesome/free-solid-svg-icons'
-
-import { NavLink } from "react-router-dom";
-
-import { IoIosArrowUp } from "react-icons/io";
+import React, { useState, useEffect, useContext } from "react";
+import { NavBarContext } from "../../context/NavBarContext";
 
 import style from "./DashBoard.module.css";
+import Sidebar from "../../components/Sidebar";
 
 const DashBoard = () => {
-  const [elementCount, setElementCount] = useState(0);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/usuario');
-        const data = response.data;
-        const count = data.length;
-        setElementCount(count);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  const { setShowNavbar } = useContext(NavBarContext);
   const [openConfig, setOpenConfig] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(false)
 
+  function handlerSidebar() {
+    setOpenSidebar(!openSidebar);
+  }
   function handlerConfig() {
     setOpenConfig(!openConfig);
   }
-  return (
-    <div className={style.container}>
 
-      
-    <aside className={style.dashboard}>
-      <div>
-        <h3>Usuário</h3>
-      </div>
-      <div className={style.items}>
-        <ul>
-          <li>
-            <button className={style.btnDashboard}>
-              <FontAwesomeIcon icon={faEnvelope}/> Todos os Usuários
-            </button>
-          </li>
-          <hr/>
-          <li>
-            <button className={style.btnDashboard} onClick={handlerConfig}>
-            <FontAwesomeIcon icon={faGear}/> Configurações Básicas
-            <IoIosArrowUp
-                className={`${style.arrow}  ${openConfig ? style.rotate : ""}`}
-              />
-            </button>
-            {openConfig && (
-              <ul className={style.item}>
-                <li>
-                  <NavLink
-                    to="/transferencia"
-                    className={({ isActive }) => (isActive ? style.active : "")}
-                  >
-                    <FontAwesomeIcon icon={faArrowRightArrowLeft} /> Transferências
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/produtos"
-                    className={({ isActive }) => (isActive ? style.active : "")}
-                  >
-                     Tipos de Produtos
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/instituicao"
-                    className={({ isActive }) => (isActive ? style.active : "")}
-                  >
-                     Instituição
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/pointofsales"
-                    className={({ isActive }) => (isActive ? style.active : "")}
-                  >
-                   <FontAwesomeIcon icon={faNetworkWired} /> Pontos de Vendas
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/pagamento"
-                    className={({ isActive }) => (isActive ? style.active : "")}
-                  >
-                    <FontAwesomeIcon icon={faCoins} /> Método de Pagamentos
-                  </NavLink>
-                </li>
-              </ul>
-            )}
-          </li>
-        </ul>
-      </div>
-    </aside>
+  useEffect(() => {
+    setShowNavbar(false);
+    return () => {
+      setShowNavbar(true);
+    };
+  }, []);
+
+  return (
+    <div className={`${style.container} ${openSidebar ? style.sidebarOpen : ''}`}>
+      <Sidebar open={openSidebar} />
+      <nav className={`${style.navbar} ${openSidebar ? style.contentOpen : ''}`}>
+      <div className={style.hamburguer} onClick={handlerSidebar}>
+          <div className={style.line}></div>
+          <div className={style.line}></div>
+          <div className={style.line}></div>
+        </div>
+        <div className={style.search}>
+          <input type="search" placeholder="Procurar" />
+          <button>Lupa</button>
+        </div>
+
+        <div className={style.config}>
+          <button onClick={handlerConfig}>user</button>
+          {openConfig && (
+            <ul>
+              <li>Profile</li>
+              <li>My Walter</li>
+              <li>Config</li>
+              <hr />
+              <li>Sair</li>
+            </ul>
+          )}
+        </div>
+      </nav>
     </div>
   );
 };

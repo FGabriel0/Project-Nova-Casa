@@ -1,26 +1,54 @@
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: -250px;
-    background-color: #333;
-    transition: left 0.3s ease-in-out;
-  }
-  
-  .sidebar.open {
-    left: 0;
-  }
-  
-  .menu {
-    margin-top: 50px;
-    padding: 0;
-    list-style: none;
-  }
-  
-  .menu li {
-    padding: 10px;
-    color: #fff;
-  }
-  
-  
+.container{
+  display: flex;
+}
+.rotate{
+  transform: rotate(180deg);
+}
+.arrow{
+ margin-top: 2px;
+}
+
+.dashboard{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--Color-1);
+  left: -250px;
+  transition: transform 0.3s ease-in-out;
+}
+.open {
+  transform: translateX(250px);
+}
+
+.btnDashboard{
+  background-color: var(--Color-1);   
+  border-radius: none; 
+}
+.btnDashboard:is(:hover, :focus){
+  color: var(--Color-2);
+  border-radius: 0px;
+  background-color: transparent;
+  border: transparent;
+}
+.item{
+ justify-content: center;
+ flex-direction: column;
+ margin-top: 10px;
+ margin-left: 15px;
+}
+.item li{
+  list-style: none;
+  margin-top: 10px;
+}
+li .active{
+  color: var(--Color-2);
+}
+.item li a{
+  color: #fff;
+  text-decoration: none;
+  list-style: none;
+  font-family: var(--font-Josefin-Sans);
+}
+.dropdownToggle{
+  background-color: transparent;
+}

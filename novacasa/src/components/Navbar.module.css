@@ -1,5 +1,4 @@
-
-nav{
+.Navbar{
     display: flex;
     width: var(--width-max);
     background-color: var(--Color-1);
@@ -8,26 +7,25 @@ nav{
     height: 12vh;
 }
 
-nav ul{
+.Navbar ul{
     display: flex;
     list-style: none;
 }
-nav ul li a{
+.Navbar ul li a{
     margin-left: 15px;
     font-weight: bold;
     color: var(--Color-2);
     font-family:"Montserrat";
     text-decoration: none;
 }
+
 .active{
-    background-color: var(--Color-2);
-    color: var(--Color-1);
+    border: solid 2px var(--Color-2);
     padding: 5px;
     border-radius: 10px;
 }
-.ocultar{
-    display: none;
-}
+
+
 .icon{
     color: var(--Color-2);
     font-size: 25px;
