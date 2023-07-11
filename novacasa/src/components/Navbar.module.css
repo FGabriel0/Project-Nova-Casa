@@ -31,3 +31,58 @@
     font-size: 25px;
     margin-top: -5px;
 }
+
+/* segunda Navbar */
+.navbar{
+    border-radius: 5px;
+    background-color: #ffffff;
+    width: 95%;
+    top: 0;
+    margin-left: 1.2em;
+    min-height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+    z-index: 99;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+    transition: transform 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out;
+
+}
+.contentOpen {
+    transform: translateX(250px);
+    width: 75%;
+  }
+
+.line{
+    width: 100%;
+    background-color:var(--Color-1);
+    height:10px;
+    border-radius: 20px;
+    margin-top:5px;
+    box-shadow:var(--box-shadow);
+    transition:transform 1s
+  }
+  
+  .hamburguer{
+    width:30px;
+    height: 25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-evenly;
+    cursor:pointer;
+  }
+  .config ul{
+    width: 100px;
+    display: block;
+    position: absolute;
+    list-style: none;
+    background-color: #ffffff;
+    margin-left: -45px;
+  }
+  .config ul li {
+    padding: 10px;
+    font-family: var(--font-Rubik);
+  }

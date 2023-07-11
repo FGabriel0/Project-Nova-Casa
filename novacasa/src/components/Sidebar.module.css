@@ -1,5 +1,15 @@
 .container{
-  display: flex;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  height: 100vh;
+  left: -16rem;
+  width: 250px;
+  background-color: var(--Color-1);
+  transition: all 0.5s ease-in-out;
+}
+.open  {
+    left: 0;
 }
 .rotate{
   transform: rotate(180deg);
@@ -7,22 +17,10 @@
 .arrow{
  margin-top: 2px;
 }
-
-.dashboard{
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background-color: var(--Color-1);
-  left: -250px;
-  transition: transform 0.3s ease-in-out;
-}
-.open {
-  transform: translateX(250px);
-}
-
 .btnDashboard{
   background-color: var(--Color-1);   
   border-radius: none; 
+
 }
 .btnDashboard:is(:hover, :focus){
   color: var(--Color-2);
@@ -32,7 +30,7 @@
 }
 .item{
  justify-content: center;
- flex-direction: column;
+ display: block;
  margin-top: 10px;
  margin-left: 15px;
 }

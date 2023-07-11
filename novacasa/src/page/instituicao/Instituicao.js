@@ -1,5 +1,9 @@
 import React from "react";
 import style from "./instituicao.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+faClock
+} from "@fortawesome/free-solid-svg-icons";
 
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";

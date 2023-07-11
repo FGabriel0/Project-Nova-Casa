@@ -4,6 +4,7 @@ import style from "./EditInstituicao.module.css";
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useFetch } from "../../hooks/useFetch";
+import Sidebar from "../../components/Sidebar";
 
 const EditInstituicao = () => {
   const { id } = useParams();
@@ -19,6 +20,8 @@ const EditInstituicao = () => {
 
   const [nome, setNome] = useState("");
   const [fone, setFone] = useState("");
+
+
 
   useEffect(() => {
     fetch(url, {
@@ -65,9 +68,9 @@ const EditInstituicao = () => {
 
     }
   };
-
   return (
     <section className={style.container}>
+      <Sidebar/>
       <div className={style.box}>
         <div>
           <h1>Instituição: {editInstituicao.nome}</h1>
