@@ -2,7 +2,6 @@ import "./App.css";
 import Instituicao from "./page/instituicao/Instituicao";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { NavBarProvider } from "./context/NavBarContext";
 
 import Navbar from "./components/Navbar";
 import Home from "./page/Home";
@@ -22,10 +21,11 @@ import NewPagamento from "./page/Pagamento/NewPagamento";
 import NewPontodeVendas from "./page/PontodeVendas/NewPontodeVendas";
 import NewProduto from "./page/Produtos/NewProduto";
 import NewTransferencia from "./page/Transferencias/NewTransferencia";
+import { SidebarProvider } from "./context/SidebarContext";
 
 function App() {
   return (
-    <NavBarProvider>
+    <SidebarProvider>
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -51,7 +51,7 @@ function App() {
           <Route path="/newTranferencia" element={<NewTransferencia />} />
         </Routes>
       </BrowserRouter>
-    </NavBarProvider>
+    </SidebarProvider>
   );
 }
 

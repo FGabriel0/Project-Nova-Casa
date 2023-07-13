@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { NavBarContext } from "../../context/NavBarContext";
+import {SidebarContext} from '../../context/SidebarContext'
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTicket,
@@ -11,34 +12,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import style from "./DashBoard.module.css";
-import Sidebar from "../../components/Sidebar";
-
 import DoughnutChart from "../../graphics/DoughnutChart";
 import LineChart from "../../graphics/LineChart";
 import Line2Chart from "../../graphics/Line2Chart";
 import BarChart from "../../graphics/BarChart"
 
 const DashBoard = () => {
-
-  const { setShowNavbar } = useContext(NavBarContext);
-  const [openConfig, setOpenConfig] = useState(false);
-  const [openSidebar, setOpenSidebar] = useState(false);
-
-  function handlerSidebar() {
-    setOpenSidebar(!openSidebar);
-  }
-  function handlerConfig() {
-    setOpenConfig(!openConfig);
-  }
-
-  useEffect(() => {
-    setShowNavbar(false);
-    return () => {
-      setShowNavbar(true);
-    };
-  }, []);
-
-
+  const {sidebarActive} = useContext(SidebarContext)
   const data = {
     labels: ['Quarto E', 'Quarto D', 'Quarto C','Quarto A'],
     datasets: [{
@@ -95,50 +75,9 @@ const DashBoard = () => {
   };
 
   return (
-    <div>
-      <div
-        className={`${style.container} ${openSidebar ? style.sidebarOpen : ""}`}
-      >
-        <div className={style.sidebar}>
-          <Sidebar open={openSidebar} />
-        </div>
-        <nav
-          className={`${style.navbar} ${openSidebar ? style.contentOpen : ""}`}
-        >
-          <div className={style.hamburguer} onClick={handlerSidebar}>
-            <div className={style.line}></div>
-            <div className={style.line}></div>
-            <div className={style.line}></div>
-          </div>
-          <div className={style.search}>
-            <input type="search" placeholder="Procurar" />
-            <button>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
-          </div>
-
-          <div className={style.config}>
-            <button onClick={handlerConfig}>
-              <FontAwesomeIcon icon={faUser} />
-            </button>
-            {openConfig && (
-              <ul>
-                <li>
-                  <FontAwesomeIcon icon={faUser} /> Profile
-                </li>
-                <li>
-                  <FontAwesomeIcon icon={faGear} /> Config
-                </li>
-                <hr />
-                <li>
-                <FontAwesomeIcon icon={faRightToBracket} /> Sair
-                </li>
-              </ul>
-            )}
-          </div>
-        </nav>
+    <div className= {style.container}>
         <section
-          className={`${style.section} ${openSidebar ? style.contentOpen : ""}`}
+          className={`${style.section} ${sidebarActive ? style.active : ""}`}
         >
           <div className={style.vendas}>
             <h3>Total de Vendas</h3>
@@ -203,7 +142,7 @@ const DashBoard = () => {
             <LineChart data={line}/>
           </div>
         </section>
-        <section className={`${style.section2} ${openSidebar ? style.contentOpen : ""}`}>
+        <section className={`${style.section2} ${sidebarActive ? style.active : ""}`}>
         <div className={style.graphics2}>
             <h3>Valor total de vendas/Més</h3>
             <Line2Chart data={line2}/>
@@ -221,7 +160,7 @@ const DashBoard = () => {
           </div>
         </section>
       </div>
-    </div>
+    
   );
 };
 

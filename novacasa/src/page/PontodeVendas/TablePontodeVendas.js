@@ -5,16 +5,16 @@ import style from './TablePontodeVendas.module.css'
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-import { useState} from "react";
+import { useState,useContext} from "react";
 import { useFetch } from '../../hooks/useFetch';
 
 import { Link } from 'react-router-dom';
-
+import { SidebarContext } from '../../context/SidebarContext';
 const url = "http://localhost:3000/pontodevendas";
 
 const TablePontodeVendas = () => {
   const { data: items, httpConfig, loading, error } = useFetch(url);
-
+  const {sidebarActive} = useContext(SidebarContext)
   const [InputPesquise, setInputPesquise] = useState(false);
 
   function handlerInputPesquise() {
@@ -31,7 +31,7 @@ const TablePontodeVendas = () => {
 
   return (
     <section className={style.container}>
-      <div className={style.box}>
+      <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <h1>Ponto de Vendas - Pesquisa</h1>
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>

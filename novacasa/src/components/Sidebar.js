@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import style from "./Sidebar.module.css";
 import { NavLink } from "react-router-dom";
+import { SidebarContext } from "../context/SidebarContext";
+
 
 import { IoIosArrowUp } from "react-icons/io";
 
@@ -15,13 +17,15 @@ import {
   faQuoteLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Sidebar = ({ open }) => {
+const Sidebar = () => {
+  const { sidebarActive } = useContext(SidebarContext);
+
   const [openConfig, setOpenConfig] = useState(false);
   function handlerConfig() {
     setOpenConfig(!openConfig);
   }
   return (
-    <div className={`${style.container} ${open ? style.open : ""}`}>
+    <div className={`${style.container} ${sidebarActive ? style.active : ""}`}>
         <aside className={style.dashboard}>
           <div className={style.items}>
             <ul>

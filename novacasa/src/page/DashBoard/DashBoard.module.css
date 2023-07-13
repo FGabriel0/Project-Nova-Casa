@@ -6,65 +6,19 @@
     transition: transform 0.3s ease-in-out;
 
 }
-
-.navbar{
-    border-radius: 5px;
-    background-color: #ffffff;
-    width: 95%;
-    top: 0;
-    margin-left: 1.2em;
-    min-height: 60px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: fixed;
-    z-index: 99;
-    justify-content: space-between;
-    padding: 0 0.5rem;
-    transition: transform 0.5s ease-in-out;
-    transition: width 0.5s ease-in-out;
-
-}
-.contentOpen {
+.container.active {
     transform: translateX(250px);
     width: 75%;
-  }
-
-.line{
-    width: 100%;
-    background-color:var(--Color-1);
-    height:10px;
-    border-radius: 20px;
-    margin-top:5px;
-    box-shadow:var(--box-shadow);
-    transition:transform 1s
-  }
-  
-  .hamburguer{
-    width:30px;
-    height: 25px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-evenly;
-    cursor:pointer;
-  }
-  .config ul{
-    width: 100px;
-    display: block;
-    position: absolute;
-    list-style: none;
-    background-color: #ffffff;
-    margin-left: -45px;
-  }
-  .config ul li {
-    padding: 10px;
-    font-family: var(--font-Rubik);
   }
   .section{
     display: flex;
     justify-content: space-around;
    margin: 100px 0 0 20px;
    z-index: 9;
+  }
+  .section.active{
+    transform: translateX(250px);
+    width: 75%;
   }
   .vendas h3{
     font-family: var(--font-Rubik);
@@ -157,6 +111,10 @@
    margin: 20px 0 0 25px;
    z-index: 9;
 }
+.section2.active{
+  transform: translateX(250px);
+    width: 80%;
+}
 .graphics2{
   background-color: #ffffff;
   border-radius: 10px;
@@ -182,10 +140,12 @@
     justify-content: center;
     text-align: center;
     align-items: center;
+    margin-left: 0;
   }
   .Temp{
-    width: 97%;
+    width: 95%;
     margin-bottom: 20px;
+    margin-left: 0 ;
   }
   .navbar{
     width: 100%;
@@ -197,13 +157,18 @@
   .graphics{
     margin-top: 20px;
     width: 50%;
+    margin-left: 0;
+ 
   }
   .section2{
     display: block;
+    margin-left: 0;
   }
   
   .graphics2{
     width: 98.5%;
+    margin-left: 0;
+    padding-left: 0;
   }
 }
 

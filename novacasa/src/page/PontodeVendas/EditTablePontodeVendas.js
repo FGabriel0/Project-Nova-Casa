@@ -1,14 +1,14 @@
 import React from "react";
 
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef,useContext } from "react";
 import { useFetch } from "../../hooks/useFetch";
-
+import { SidebarContext } from "../../context/SidebarContext";
 import style from "./EditTablePontodeVendas.module.css";
 
 const EditTablePontodeVendas = () => {
   const { id } = useParams();
-
+  const {sidebarActive} = useContext(SidebarContext)
   const url = `http://localhost:3000/pontodevendas/${id}`;
 
   const inputRef = useRef(null);
@@ -66,7 +66,7 @@ const EditTablePontodeVendas = () => {
   };
   return (
     <section className={style.container}>
-      <div className={style.box}>
+      <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <div>
           <h1>Ponto de Venda: {editPontodeVendas.nome}</h1>
           <hr />

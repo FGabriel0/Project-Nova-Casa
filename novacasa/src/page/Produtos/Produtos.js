@@ -2,7 +2,8 @@ import React from "react";
 import style from "./Produtos.module.css";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState,useContext } from "react";
+import { SidebarContext } from "../../context/SidebarContext";
 import { useFetch } from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
 
@@ -11,7 +12,7 @@ const urlPontodeVendas = "http://localhost:3000/pontodevendas";
 
 const Produtos = () => {
   const { data: items, httpConfig, loading, error } = useFetch(url);
-
+  const {sidebarActive} = useContext(SidebarContext)
   const [InputPesquise, setInputPesquise] = useState(false);
 
   function handlerInputPesquise() {
@@ -29,7 +30,7 @@ const Produtos = () => {
 
   return (
     <section className={style.container}>
-      <div className={style.box}>
+      <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <h1>Ponto de Vendas - Pesquisa</h1>
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>

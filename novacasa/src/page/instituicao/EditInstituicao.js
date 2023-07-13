@@ -1,8 +1,9 @@
 import React from "react";
 import style from "./EditInstituicao.module.css";
+import { SidebarContext } from "../../context/SidebarContext";
 
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef,useContext } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import Sidebar from "../../components/Sidebar";
 
@@ -12,6 +13,7 @@ const EditInstituicao = () => {
 
   const url = `http://localhost:3000/instituicao/${id}`;
 
+  const {sidebarActive} = useContext(SidebarContext)
   const [editInstituicao, setEditInstituicao] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
   const [menssage, setMenssage] = useState("");
@@ -71,7 +73,7 @@ const EditInstituicao = () => {
   return (
     <section className={style.container}>
       <Sidebar/>
-      <div className={style.box}>
+      <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <div>
           <h1>Instituição: {editInstituicao.nome}</h1>
           <hr />

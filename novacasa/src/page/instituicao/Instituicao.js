@@ -8,7 +8,8 @@ faClock
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-import { useState} from "react";
+import { useState,useContext} from "react";
+import { SidebarContext } from "../../context/SidebarContext";
 import { Link } from "react-router-dom";
 
 import { useFetch } from "../../hooks/useFetch";
@@ -16,7 +17,7 @@ import { useFetch } from "../../hooks/useFetch";
 const url = "http://localhost:3000/instituicao";
 
 const Instituicao = () => {
-
+  const {sidebarActive} = useContext(SidebarContext)
   const { data: items, httpConfig, loading, error } = useFetch(url);
 
   const [InputPesquise, setInputPesquise] = useState(false);
@@ -35,7 +36,7 @@ const Instituicao = () => {
 
   return (
     <section className={style.container}>
-      <div className={style.box}>
+      <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <h1>Instituição - Pesquisa</h1>
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>
