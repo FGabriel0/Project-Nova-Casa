@@ -8,12 +8,11 @@ import Sidebar from "./Sidebar";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTicket,
+
   faUser,
   faMagnifyingGlass,
   faGear,
   faRightToBracket,
-  faSun
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {

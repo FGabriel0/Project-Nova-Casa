@@ -9,6 +9,7 @@ import { useState,useContext} from "react";
 import { useFetch } from '../../hooks/useFetch';
 import { SidebarContext } from '../../context/SidebarContext';
 import { Link } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 const url = "http://localhost:3000/pagamento";
 
@@ -35,6 +36,7 @@ const TablePontodeVendas = () => {
 
   return (
     <section className={style.container}>
+      {loading && <Loading/>}
       <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <h1>Métodos de Pagamento - Pesquisa</h1>
         <hr />
@@ -55,7 +57,6 @@ const TablePontodeVendas = () => {
           </form>
         )}
         <br />
-        {loading && <p className={style.loading}>Carreagando Dados...</p>}
         {error && <p className={style.error}>{error}</p>}
         {!error && (
           <table>

@@ -6,6 +6,7 @@ import { useState,useContext } from "react";
 import { SidebarContext } from "../../context/SidebarContext";
 import { useFetch } from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 const url = "http://localhost:3000/produtos";
 const urlPontodeVendas = "http://localhost:3000/pontodevendas";
@@ -30,6 +31,7 @@ const Produtos = () => {
 
   return (
     <section className={style.container}>
+      {loading && <Loading/>}
       <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <h1>Ponto de Vendas - Pesquisa</h1>
         <hr />
@@ -51,7 +53,6 @@ const Produtos = () => {
           </form>
         )}
         <br />
-        {loading && <p className={style.loading}>Carreagando Dados...</p>}
         {error && <p className={style.error}>{error}</p>}
         {!error && (
           <table>

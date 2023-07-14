@@ -1,8 +1,7 @@
 import "./App.css";
 import Instituicao from "./page/instituicao/Instituicao";
-
+import { useEffect,useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Navbar from "./components/Navbar";
 import Home from "./page/Home";
 import EditInstituicao from "./page/instituicao/EditInstituicao";
@@ -21,11 +20,21 @@ import NewPagamento from "./page/Pagamento/NewPagamento";
 import NewPontodeVendas from "./page/PontodeVendas/NewPontodeVendas";
 import NewProduto from "./page/Produtos/NewProduto";
 import NewTransferencia from "./page/Transferencias/NewTransferencia";
-import { SidebarProvider } from "./context/SidebarContext";
 
+import { SidebarProvider } from "./context/SidebarContext";
+import Loading from "./components/Loading";
 function App() {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
   return (
-    <SidebarProvider>
+    <SidebarProvider>    
+      {loading && <Loading/>}
       <BrowserRouter>
         <Navbar />
         <Routes>

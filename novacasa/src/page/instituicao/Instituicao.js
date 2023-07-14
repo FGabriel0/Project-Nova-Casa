@@ -1,9 +1,6 @@
 import React from "react";
 import style from "./instituicao.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-faClock
-} from "@fortawesome/free-solid-svg-icons";
+
 
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -13,6 +10,7 @@ import { SidebarContext } from "../../context/SidebarContext";
 import { Link } from "react-router-dom";
 
 import { useFetch } from "../../hooks/useFetch";
+import Loading from "../../components/Loading";
 
 const url = "http://localhost:3000/instituicao";
 
@@ -36,6 +34,7 @@ const Instituicao = () => {
 
   return (
     <section className={style.container}>
+      {loading  && <Loading/>}
       <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <h1>Instituição - Pesquisa</h1>
         <hr />
@@ -55,7 +54,6 @@ const Instituicao = () => {
           </form>
         )}
         <br />
-        {loading && <p className={style.loading}>Carreagando Dados...</p>}
         {error && <p className={style.error}>{error}</p>}
         {!error && (
           <table>

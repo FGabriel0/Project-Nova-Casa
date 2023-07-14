@@ -1,20 +1,21 @@
-import React from 'react'
+import React from "react";
 
-import style from './TablePontodeVendas.module.css'
+import style from "./TablePontodeVendas.module.css";
 
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-import { useState,useContext} from "react";
-import { useFetch } from '../../hooks/useFetch';
+import { useState, useContext } from "react";
+import { useFetch } from "../../hooks/useFetch";
 
-import { Link } from 'react-router-dom';
-import { SidebarContext } from '../../context/SidebarContext';
+import { Link } from "react-router-dom";
+import { SidebarContext } from "../../context/SidebarContext";
+import Loading from "../../components/Loading";
 const url = "http://localhost:3000/pontodevendas";
 
 const TablePontodeVendas = () => {
   const { data: items, httpConfig, loading, error } = useFetch(url);
-  const {sidebarActive} = useContext(SidebarContext)
+  const { sidebarActive } = useContext(SidebarContext);
   const [InputPesquise, setInputPesquise] = useState(false);
 
   function handlerInputPesquise() {
@@ -22,20 +23,25 @@ const TablePontodeVendas = () => {
   }
 
   function handlerRemove(id) {
-    const sair = window.confirm("Deseja Realmente Deletar esse Ponto de Vendas?");
+    const sair = window.confirm(
+      "Deseja Realmente Deletar esse Ponto de Vendas?"
+    );
     if (sair) {
-      window.location.reload()
+      window.location.reload();
       return httpConfig(id, "DELETE");
     }
   }
 
   return (
     <section className={style.container}>
+      {loading && <Loading/>}
       <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <h1>Ponto de Vendas - Pesquisa</h1>
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>
-        <button className={style.btn}><Link to='/newPontodeVendas'>Novo</Link></button>
+        <button className={style.btn}>
+          <Link to="/newPontodeVendas">Novo</Link>
+        </button>
         <button>Limpar</button>
         {InputPesquise && (
           <form>
@@ -50,7 +56,6 @@ const TablePontodeVendas = () => {
           </form>
         )}
         <br />
-        {loading && <p className={style.loading}>Carreagando Dados...</p>}
         {error && <p className={style.error}>{error}</p>}
         {!error && (
           <table>
@@ -92,7 +97,7 @@ const TablePontodeVendas = () => {
         )}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default TablePontodeVendas
+export default TablePontodeVendas;
