@@ -1,9 +1,9 @@
 .login {
     text-align: center;
   }
-  .error{
-    margin-top: 15px;
+  .mensagemErro{
+    margin-top: 20px;
     color: var(--Color-error);
     font-family: var(--font-Montserrat);
-    font-size: 20px;
+    font-size: 15px;
   }

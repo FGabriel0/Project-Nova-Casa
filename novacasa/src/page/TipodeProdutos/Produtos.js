@@ -6,8 +6,7 @@ import { useState, useEffect } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
 
-const url = "http://localhost:3000/produtos";
-const urlPontodeVendas = "http://localhost:3000/pontodevendas";
+const url = "http://localhost:3000/tipoprodutos";
 
 const Produtos = () => {
   const { data: items, httpConfig, loading, error } = useFetch(url);
@@ -30,7 +29,7 @@ const Produtos = () => {
   return (
     <section className={style.container}>
       <div className={style.box}>
-        <h1>Ponto de Vendas - Pesquisa</h1>
+        <h1>Tipos de Produtos - Pesquisa</h1>
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>
         <button className={style.btn}>

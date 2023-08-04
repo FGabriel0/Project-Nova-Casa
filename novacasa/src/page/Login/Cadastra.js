@@ -7,7 +7,7 @@ import styles from "./Cadastra.module.css";
 import { useAuthentication } from "../../hooks/useAuthentication";
 
 const Cadastra = () => {
-  const url = "http://localhost:3000/usuario";
+  const url = "http://localhost:3000/adm";
 
   const { httpConfig, loading, error: authError,confirm } = useAuthentication(url);
 

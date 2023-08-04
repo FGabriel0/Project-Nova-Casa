@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 
-const url = "http://localhost:3000/produtos";
+const url = "http://localhost:3000/tipoprodutos";
 const urlPontodeVendas = "http://localhost:3000/pontodevendas";
 
 const NewProduto = () => {
@@ -17,7 +17,6 @@ const NewProduto = () => {
   const { data: items, httpConfig, loading, error } = useFetch(url);
   const navigate = useNavigate();
   const inputRef = useRef(null);
-  const [menssage, setMenssage] = useState("");
 
   function handlerCategory(e) {
     setOpcaoSelecionada(e.target.value);
@@ -36,7 +35,6 @@ const NewProduto = () => {
 
     const validar = inputRef.current.checkValidity();
     if (validar) {
-      setMenssage("Novo Pagamento Finalizada");
       navigate("/produtos");
     }
 

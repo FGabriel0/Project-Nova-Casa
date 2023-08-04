@@ -1,72 +1,108 @@
-import React from "react";
 import style from "./Navbar.module.css";
+import { useContext, useState } from "react";
 
-import imgBanner from "../assets/img/logo-nossa-casa.png.png";
-import { useLocation, NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { SidebarContext } from "../context/SidebarContext";
+import Sidebar from "./Sidebar";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faGear,
+  faRightToBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
+  const [openConfig, setOpenConfig] = useState(false);
+  const { sidebarActive, setSidebarActive } = useContext(SidebarContext);
+
+  const handlerSidebar = () => {
+    setSidebarActive((prevState) => !prevState);
+  };
+
+  function handlerConfig() {
+    setOpenConfig(!openConfig);
+  }
   const location = useLocation();
 
   return (
     <div className={style.container}>
-      <nav className={style.Navbar}>
-        <div>
-          <img src={imgBanner} alt="logo" />
+      {location.pathname === "/" ||
+      location.pathname === "/Consulta" ||
+      location.pathname === "/admistrativo" ||
+      location.pathname === "/login" ||
+      location.pathname === "/cadastrar" ? (
+        ""
+      ) : (
+        // <nav className={style.Navbar}>
+        //   <div>
+        //     <img src={imgBanner} alt="logo" />
+        //   </div>
+        //   <div className={style.links_list}>
+        //     <ul>
+        //       <li>
+        //         <NavLink
+        //           to="/"
+        //           className={({ isActive }) => (isActive ? style.active : "")}
+        //         >
+        //           Home
+        //         </NavLink>
+        //       </li>
+        //       <li>
+        //         <NavLink
+        //           to="/Consulta"
+        //           className={({ isActive }) => (isActive ? style.active : "")}
+        //         >
+        //           Consulta
+        //         </NavLink>
+        //       </li>
+        //       <li>
+        //         <NavLink
+        //           to="/admistrativo"
+        //           className={({ isActive }) => (isActive ? style.active : "")}
+        //         >
+        //           admistrativo
+        //         </NavLink>
+        //       </li>
+        //     </ul>
+        //   </div>
+        // </nav>
+        <div
+          className={`${style.container} ${sidebarActive ? style.open : ""}`}
+        >
+          <div className={style.sidebar}>
+            <Sidebar />
+          </div>
+          <nav className={`${style.navbar} ${sidebarActive ? style.open : ""}`}>
+            <div className={style.hamburguer} onClick={handlerSidebar}>
+              <div className={style.line}></div>
+              <div className={style.line}></div>
+              <div className={style.line}></div>
+            </div>
+
+            <div className={style.config}>
+              <button onClick={handlerConfig}>
+                <FontAwesomeIcon icon={faUser} />
+              </button>
+              {openConfig && (
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faUser} /> Profile
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faGear} /> Config
+                  </li>
+                  <hr />
+                  <li>
+                    <FontAwesomeIcon icon={faRightToBracket} />
+                    <Link to="/">Sair</Link>
+                  </li>
+                </ul>
+              )}
+            </div>
+          </nav>
         </div>
-        <div className={style.links_list}>
-          {location.pathname === "/dashboard" ||
-          location.pathname === "/instituicao" ||
-          location.pathname === '/pointofsales' ||
-          location.pathname === '/pagamento' ||
-          location.pathname === '/transferencia'  ? (
-            <ul>
-              <li>
-                <NavLink
-                  to="/dashboard"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  DashBoard
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  Fechar
-                </NavLink>
-              </li>
-            </ul>
-          ) : (
-            <ul>
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/Consulta"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  Consulta
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/admistrativo"
-                  className={({ isActive }) => (isActive ? style.active : "")}
-                >
-                  admistrativo
-                </NavLink>
-              </li>
-            </ul>
-          )}
-        </div>
-      </nav>
+      )}
     </div>
   );
 };
