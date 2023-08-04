@@ -2,15 +2,17 @@ import React from "react";
 import style from "./Produtos.module.css";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState,useContext } from "react";
+import { SidebarContext } from "../../context/SidebarContext";
 import { useFetch } from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 const url = "http://localhost:3000/tipoprodutos";
 
 const Produtos = () => {
   const { data: items, httpConfig, loading, error } = useFetch(url);
-
+  const {sidebarActive} = useContext(SidebarContext)
   const [InputPesquise, setInputPesquise] = useState(false);
 
   function handlerInputPesquise() {
@@ -28,8 +30,14 @@ const Produtos = () => {
 
   return (
     <section className={style.container}>
+<<<<<<< HEAD:novacasa/src/page/TipodeProdutos/Produtos.js
       <div className={style.box}>
         <h1>Tipos de Produtos - Pesquisa</h1>
+=======
+      {loading && <Loading/>}
+      <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
+        <h1>Ponto de Vendas - Pesquisa</h1>
+>>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a:novacasa/src/page/Produtos/Produtos.js
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>
         <button className={style.btn}>
@@ -49,7 +57,6 @@ const Produtos = () => {
           </form>
         )}
         <br />
-        {loading && <p className={style.loading}>Carreagando Dados...</p>}
         {error && <p className={style.error}>{error}</p>}
         {!error && (
           <table>

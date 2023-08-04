@@ -63,6 +63,13 @@
     {
       "nome": "Boleto",
       "id": 3
+<<<<<<< HEAD
+=======
+    },
+    {
+      "nome": "Dinheiro",
+      "id": 4
+>>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a
     }
   ],
   "tipoprodutos": [
@@ -133,6 +140,13 @@
         "Saida"
       ],
       "id": 4
+    },
+    {
+      "description": "eeeee",
+      "checkboxValues": [
+        "Entrada"
+      ],
+      "id": 5
     }
   ],
   "usuarios": [

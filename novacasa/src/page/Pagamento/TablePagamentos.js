@@ -5,16 +5,16 @@ import style from "./TablePagamentos.module.css"
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-import { useState} from "react";
+import { useState,useContext} from "react";
 import { useFetch } from '../../hooks/useFetch';
-
+import { SidebarContext } from '../../context/SidebarContext';
 import { Link } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 const url = "http://localhost:3000/pagamento";
 
 const TablePontodeVendas = () => {
-  const [nome,setNome] = useState("");
-
+  const {sidebarActive} = useContext(SidebarContext)
   const { data: items, httpConfig, loading, error } = useFetch(url);
 
   const [InputPesquise, setInputPesquise] = useState(false);
@@ -25,13 +25,7 @@ const TablePontodeVendas = () => {
     setInputPesquise(true);
   }
 
-  function handlerInputNovo() {
-    setInputPesquise(false);
-    setInputNovo(true);
-  }
-
-
-
+  
   function handlerRemove(id) {
     const sair = window.confirm("Deseja Realmente Deletar esse Ponto de Vendas?");
     if (sair) {
@@ -42,7 +36,8 @@ const TablePontodeVendas = () => {
 
   return (
     <section className={style.container}>
-      <div className={style.box}>
+      {loading && <Loading/>}
+      <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <h1>Métodos de Pagamento - Pesquisa</h1>
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>
@@ -62,7 +57,6 @@ const TablePontodeVendas = () => {
           </form>
         )}
         <br />
-        {loading && <p className={style.loading}>Carreagando Dados...</p>}
         {error && <p className={style.error}>{error}</p>}
         {!error && (
           <table>
@@ -96,9 +90,7 @@ const TablePontodeVendas = () => {
                 ))}
             </tbody>
             <tfoot>
-              <tr>
-                <FaArrowLeft /> 1 <FaArrowRight />
-              </tr>
+                <FaArrowLeft /> 1 <FaArrowRight />          
             </tfoot>
           </table>
         )}

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useContext } from "react";
+=======
+import React, { useState, useEffect, useContext } from "react";
+>>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a
 import {SidebarContext} from '../../context/SidebarContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

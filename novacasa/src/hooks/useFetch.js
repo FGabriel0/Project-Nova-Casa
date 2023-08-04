@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 export const useFetch = (url) => {
   const [data, setData] = useState(null);
-
   const [config, setConfig] = useState(null);
   const [method, setMethod] = useState(null);
   const [callFetch, setCallFetch] = useState(false);
@@ -32,7 +31,7 @@ export const useFetch = (url) => {
       }); 
 
       setMethod(method);
-      setitemId(data)
+      setitemId(data);
     } else if (method === "PUT") {
       setConfig({
         method,
@@ -46,30 +45,28 @@ export const useFetch = (url) => {
     }
   };
 
-  // Recebendo informações
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      //Tratando error
-      try {
-        const res = await fetch(url);
 
-        const json = await res.json();
+      // Atraso de 4 segundos
+      setTimeout(async () => {
+        try {
+          const res = await fetch(url);
+          const json = await res.json();
+          setData(json);
+        } catch (error) {
+          console.log(error.message);
+          setError("Houve algum erro ao carregar os dados!");
+        }
 
-        setData(json);
-      } catch (error) {
-        console.log(error.message);
-        setError("Houve algum error ao Carregar os Dados!");
-      }
-
-      setLoading(false);
+        setLoading(false);
+      }, 2000);
     };
 
     fetchData();
-  
-  }, [url, callFetch]);
+  }, [url]);
 
-  //   Refatorando Post
   useEffect(() => {
     const httpRequest = async () => {
       let json;
@@ -78,19 +75,14 @@ export const useFetch = (url) => {
         let fetchOptions = [url, config];
 
         const res = await fetch(...fetchOptions);
-
         json = await res.json();
       } else if (method === "DELETE") {
         const deleteUrl = `${url}/${itemId}`;
-
         const res = await fetch(deleteUrl, config);
-
         json = res.json();
       } else if (method === "PUT") {
         const patchUrl = url;
-
         const res = await fetch(patchUrl, config);
-
         json = await res.json();
       }
 
@@ -100,5 +92,5 @@ export const useFetch = (url) => {
     httpRequest();
   }, [config, method, url, itemId]);
 
-  return { data, httpConfig, loading, error};
+  return { data, httpConfig, loading, error };
 };

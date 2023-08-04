@@ -1,18 +1,18 @@
 import React from "react";
 
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef,useContext } from "react";
 import { useFetch } from "../../hooks/useFetch";
-
+import { SidebarContext } from "../../context/SidebarContext";
 import style from "./EditPagamento.module.css";
 
 const EditTablePontodeVendas = () => {
   const { id } = useParams();
-
+  const {sidebarActive} = useContext(SidebarContext)
   const url = `http://localhost:3000/pagamento/${id}`;
 
   const inputRef = useRef(null);
-
+  
   const [editPagamento, setEditPagamento] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
   const [menssage, setMenssage] = useState("");
@@ -66,7 +66,7 @@ const EditTablePontodeVendas = () => {
   };
   return (
     <section className={style.container}>
-      <div className={style.box}>
+      <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <div>
           <h1>Método de Pagamento: {editPagamento.nome}</h1>
           <hr />

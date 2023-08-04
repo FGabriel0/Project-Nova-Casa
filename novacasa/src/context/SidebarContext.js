@@ -10,4 +10,8 @@ export const SidebarProvider = ({ children }) => {
       {children}
     </SidebarContext.Provider>
   );
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a

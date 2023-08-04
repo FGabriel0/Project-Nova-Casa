@@ -66,4 +66,8 @@ const BarChart = () => {
   );
 };
 
+<<<<<<< HEAD
 export default BarChart;
+=======
+export default BarChart;
+>>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a

@@ -56,6 +56,11 @@ function App() {
           <Route path="/pagamento" element={<TablePagamento />} />
           <Route path="/pagamento/:id" element={<EditPagamento />} />
           <Route path="/newPagamento" element={<NewPagamento />} />
+<<<<<<< HEAD
+=======
+          <Route path="/produtos" element={<Produtos />} />
+          <Route path="/newProduto" element={<NewProduto />} />
+>>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a
           <Route path="/transferencia" element={<Transferencias />} />
           <Route path="/newTranferencia" element={<NewTransferencia />} />
         </Routes>

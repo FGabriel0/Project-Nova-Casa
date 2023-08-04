@@ -108,4 +108,8 @@ const Sidebar = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Sidebar;
+=======
+export default Sidebar;
+>>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a

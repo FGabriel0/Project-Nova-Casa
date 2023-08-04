@@ -30,4 +30,8 @@ const LineChart = ({ data }) => {
   return <canvas ref={chartRef} style={{ width: '400px', height: '300px' }} />;
 };
 
+<<<<<<< HEAD
 export default LineChart;
+=======
+export default LineChart;
+>>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a

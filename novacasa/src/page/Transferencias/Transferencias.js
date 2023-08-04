@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import style from "./Transferencias.module.css";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
+import { SidebarContext } from "../../context/SidebarContext";
+import Loading from "../../components/Loading";
 
 const url = "http://localhost:3000/transferencia";
 
 const Transferencias = () => {
   const { data: items, httpConfig, loading, error } = useFetch(url);
-
+  const { sidebarActive } = useContext(SidebarContext);
 
   const [transferencias, setTransferencias] = useState([]);
 
@@ -32,7 +34,8 @@ const Transferencias = () => {
 
   return (
     <section className={style.container}>
-      <div className={style.box}>
+      {loading && <Loading/>}
+      <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <h1>Instituição - Pesquisa</h1>
         <hr />
         <button onClick={handlerInputPesquise}>Pesquisa</button>
@@ -53,7 +56,6 @@ const Transferencias = () => {
           </form>
         )}
         <br />
-        {loading && <p className={style.loading}>Carreagando Dados...</p>}
         {error && <p className={style.error}>{error}</p>}
         {!error && (
           <table>
