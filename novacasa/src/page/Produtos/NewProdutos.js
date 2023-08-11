@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./NewProduto.module.css";
+import style from "./NewProdutos.module.css";
 
 import { useState, useEffect, useRef } from "react";
 import { useFetch } from "../../hooks/useFetch";

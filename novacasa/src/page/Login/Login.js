@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState,useEffect } from "react";
+import { useNavigate,useLocation } from "react-router-dom";
+import { post } from "../../service/ApiService";
+
+import { mensagemErro } from "../../components/notificationToastr/toastr";
 
 import styles from "./Login.module.css";
 
@@ -8,28 +10,37 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [mensagemErro, setMensagemErro] = useState(null);
+
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post(
-        "http://localhost:8082/api/admin/autenticar",
-        {
-          email: email,
-          senha: senha,
-        }
-      );
-      console.log(response.data); // Trata a resposta do servidor em caso de sucesso
-      navigate(`/dashboard`)
+      const response = await post("/api/admin/autenticar", { 
+        email: email, 
+        senha: senha
+      });
+      localStorage.setItem(`_usuario_logado`, JSON.stringify(response.data));
+      navigate(`/dashboard`);
     } catch (error) {
-      setMensagemErro(error.response.data); // Trata a resposta do servidor em caso de erro
+      if (error.response && error.response.data) {
+        mensagemErro(error.response.data);
+      } 
     }
   };
+
+  const searchParams = new URLSearchParams(location.search);
+  const isVisitante = searchParams.get("visitante");
+
+  useEffect(() => {
+    if (isVisitante === "true") {
+      navigate("/login")
+      mensagemErro("Você deve esta logado para ter acesso")
+    }
+  }, [isVisitante]);
 
   return (
     <div className={styles.login}>

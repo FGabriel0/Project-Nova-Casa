@@ -30,8 +30,5 @@ const DonutChart = ({ data }) => {
   return <canvas ref={chartRef} />;
 };
 
-<<<<<<< HEAD
 export default DonutChart;
-=======
-export default DonutChart;
->>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a
+

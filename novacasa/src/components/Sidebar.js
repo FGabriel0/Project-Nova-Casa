@@ -1,8 +1,10 @@
 import React, { useState,useContext } from "react";
 import style from "./Sidebar.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import { SidebarContext } from "../context/SidebarContext";
 import { IoIosArrowUp } from "react-icons/io";
+
+import User from "../assets/img/user.png"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,19 +18,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar = () => {
+
+  const navigate = useNavigate()
+
   const { sidebarActive } = useContext(SidebarContext);
   const [openConfig, setOpenConfig] = useState(false);
+
+  const usuarioLogado = JSON.parse(localStorage.getItem("_usuario_logado"));
+  const nomeUsuario = usuarioLogado ? usuarioLogado.nome : "visitante";
 
   function handlerConfig() {
     setOpenConfig(!openConfig);
   }
-
 
   return (
     <div className={`${style.container} ${sidebarActive ? style.active : ""}`}>
         <aside className={style.dashboard}>
           <div className={style.items}>
             <ul>
+              <li>
+                <div className={style.user}>
+                <img src={User}/>
+                <p>{nomeUsuario} <FontAwesomeIcon icon={faGear} /></p>
+                </div>
+              </li>
               <li>
                 <button className={style.Sidebar}>
                   <FontAwesomeIcon icon={faEnvelope} /> Todos os Usuários
@@ -108,8 +121,5 @@ const Sidebar = () => {
   );
 };
 
-<<<<<<< HEAD
+
 export default Sidebar;
-=======
-export default Sidebar;
->>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a

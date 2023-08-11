@@ -50,8 +50,19 @@ li .active{
 }
 .dropdownToggle{
   background-color: transparent;
-<<<<<<< HEAD
 }
-=======
+
+.user{
+  text-align: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
->>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a
+.user img{
+  width: 30%;
+}
+.user p{
+  font-family: var(--font-Josefin-Sans);
+  text-transform: uppercase;
+  font-size: 15px;
+}

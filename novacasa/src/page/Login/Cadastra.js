@@ -1,50 +1,49 @@
-import React, { useEffect } from "react";
-import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { post } from "../../service/ApiService";
+import {
+  mensagemSucesso,
+  mensagemErro,
+} from "../../components/notificationToastr/toastr";
+
+import { validar } from "../../service/CadastraAdmin";
 
 import styles from "./Cadastra.module.css";
 
-import { useAuthentication } from "../../hooks/useAuthentication";
-
 const Cadastra = () => {
-  const url = "http://localhost:3000/adm";
+  const navigate = useNavigate();
 
-  const { httpConfig, loading, error: authError,confirm } = useAuthentication(url);
-
-  const [displayName, setDisplayName] = useState("");
-  const [password, setPassword] = useState("");
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-
-  const inputRef = useRef(null);
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
 
-    setError();
+    const errorEncontrados = validar(nome, email, senha, confirmPassword);
 
-    const usuario = {
-      displayName,
-      password,
-    };
-
-    if (password !== confirmPassword) {
-      setError("* As senhas precisam ser iguais! *");
+    if (Object.keys(errorEncontrados).length > 0) {
+      errorEncontrados.forEach((msg, index) => {
+        mensagemErro(msg);
+      });
       return;
     }
 
-    setDisplayName("");
-    setPassword("");
-    setConfirmPassword("");
-
-    httpConfig(usuario, "POST");
-  };
-
-  useEffect(() => {
-    if (authError) {
-      setError(authError);
+    try {
+      const response = await post("/api/admin", {
+        nome: nome,
+        email: email,
+        senha: senha,
+      });
+      mensagemSucesso("Usuário Cadastrado Com Sucesso");
+      navigate("/login");
+    } catch (error) {
+      if (error.response && error.response.data) {
+        mensagemErro(error.response.data);
+      }
     }
-  }, [authError]);
+  };
 
   return (
     <div className={styles.register}>
@@ -54,12 +53,20 @@ const Cadastra = () => {
           <span>Nome:</span>
           <input
             type="text"
-            name="displayName"
-            ref={inputRef}
-            required
+            name="nome"
             placeholder="Nome do usuário"
-            onChange={(e) => setDisplayName(e.target.value)}
-            value={displayName}
+            onChange={(e) => setNome(e.target.value)}
+            value={nome}
+          />
+        </label>
+        <label>
+          <span>Email:</span>
+          <input
+            type="email"
+            name="email"
+            placeholder="Digite seu email: "
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
         </label>
         <label>
@@ -67,11 +74,9 @@ const Cadastra = () => {
           <input
             type="password"
             name="password"
-            ref={inputRef}
-            required
             placeholder="Insira a senha"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            onChange={(e) => setSenha(e.target.value)}
+            value={senha}
           />
         </label>
         <label>
@@ -79,24 +84,15 @@ const Cadastra = () => {
           <input
             type="password"
             name="confirmPassword"
-            ref={inputRef}
-            required
             placeholder="Confirme a senha"
             onChange={(e) => setConfirmPassword(e.target.value)}
             value={confirmPassword}
           />
         </label>
-        {!loading && <button className="btn">Entrar</button>}
-        {loading && (
-          <button className="btn" disabled>
-            Aguarde...
-          </button>
-        )}
+        <button className="btn">Cadastra</button>
         <p>
           <Link to="/login">Acesse sua Conta!</Link>
         </p>
-        {confirm && <p className={styles.confirm}>{confirm}</p>}
-        {error && <p className={styles.error}>{error}</p>}
       </form>
     </div>
   );

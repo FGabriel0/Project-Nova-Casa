@@ -30,8 +30,6 @@ const LineChart = ({ data }) => {
   return <canvas ref={chartRef} />;
 };
 
-<<<<<<< HEAD
+
 export default LineChart;
-=======
-export default LineChart;
->>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a
+

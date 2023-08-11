@@ -1,14 +1,12 @@
-<<<<<<< HEAD
-import React, { useContext } from "react";
-=======
 import React, { useState, useEffect, useContext } from "react";
->>>>>>> 2d9f897939802285be9abaa85b59ebbaf384a12a
 import {SidebarContext} from '../../context/SidebarContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTicket,
   faSun
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { mensagemAlert } from "../../components/notificationToastr/toastr";
 
 import style from "./DashBoard.module.css";
 import DoughnutChart from "../../graphics/DoughnutChart";
@@ -17,6 +15,13 @@ import Line2Chart from "../../graphics/Line2Chart";
 import BarChart from "../../graphics/BarChart"
 
 const DashBoard = () => {
+
+  const[saleTrailer , setSaleTrailer] = useState(0)
+  const[saleBazar , setSaleBazar] = useState(0)
+  const[saleLoja , setSaleLoja] = useState(0)
+  const[saleCasaApoio , setSaleCasaApoio] = useState(0)
+
+
   const {sidebarActive} = useContext(SidebarContext)
   const data = {
     labels: ['Quarto E', 'Quarto D', 'Quarto C','Quarto A'],
@@ -73,6 +78,17 @@ const DashBoard = () => {
     ],
   };
 
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const usuarioLogado = JSON.parse(localStorage.getItem("_usuario_logado"));
+    
+    if (!usuarioLogado) {
+      navigate("/login");
+      mensagemAlert("Deve esta logado para ter acesso!!")
+    }
+  })
+
   return (
     <div className= {style.container}>
         <section
@@ -90,7 +106,7 @@ const DashBoard = () => {
                 </div>
                 <div className={style.item_vendas}>
                   <p>Bazar</p>
-                  <h2>90</h2>
+                  <h2>{saleBazar}</h2>
                 </div>
               </li>
               <li>
@@ -102,7 +118,7 @@ const DashBoard = () => {
                 </div>
                 <div className={style.item_vendas2}>
                   <p>Loja</p>
-                  <h2>55</h2>
+                  <h2>{saleLoja}</h2>
                 </div>
               </li>
 
@@ -115,7 +131,7 @@ const DashBoard = () => {
                 </div>
                 <div className={style.item_vendas3}>
                   <p>Trailer</p>
-                  <h2>100</h2>
+                  <h2>{saleTrailer}</h2>
                 </div>
               </li>
               <li>
@@ -127,7 +143,7 @@ const DashBoard = () => {
                 </div>
                 <div className={style.item_vendas4}>
                   <p>Casa de Apoio</p>
-                  <h2>10</h2>
+                  <h2>{saleCasaApoio}</h2>
                 </div>
               </li>
             </ul>
