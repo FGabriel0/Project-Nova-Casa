@@ -4,33 +4,53 @@ import style from "./TablePontodeVendas.module.css";
 
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { mensagemSucesso,mensagemErro } from "../../components/notificationToastr/toastr";
 
-import { useState, useContext } from "react";
-import { useFetch } from "../../hooks/useFetch";
+import { useState, useContext,useEffect } from "react";
+import { get,del } from "../../service/ApiService";
 
 import { Link } from "react-router-dom";
 import { SidebarContext } from "../../context/SidebarContext";
 import Loading from "../../components/Loading";
-const url = "http://localhost:3000/pontodevendas";
 
 const TablePontodeVendas = () => {
-  const { data: items, httpConfig, loading, error } = useFetch(url);
   const { sidebarActive } = useContext(SidebarContext);
+  const [loading, setLoading] = useState(true);
   const [InputPesquise, setInputPesquise] = useState(false);
+  const[item , setItem] = useState([]);
+
 
   function handlerInputPesquise() {
     setInputPesquise(true);
   }
 
   function handlerRemove(id) {
-    const sair = window.confirm(
-      "Deseja Realmente Deletar esse Ponto de Vendas?"
-    );
-    if (sair) {
-      window.location.reload();
-      return httpConfig(id, "DELETE");
-    }
+    const endpoint = `/api/pontodevenda/${id}`;
+
+  return del(endpoint)
+    .then(response => {
+      mensagemSucesso(`excluído com sucesso!`);
+      window.location.reload()
+    })
+    .catch(error => {
+      mensagemErro(`Erro ao excluir o recurso com ID ${id}:`, error);
+    });
   }
+
+  useEffect(()=>{
+    async function fetchData(){
+      try {
+        const response = await get("/api/pontodevenda");
+        const responseData = response.data;
+        setItem(responseData);
+        setLoading(false)    
+      } catch (error) {
+        console.log("Erro na busca dos Dados", error);
+      }
+    }
+
+    fetchData();
+  },[]);
 
   return (
     <section className={style.container}>
@@ -56,8 +76,7 @@ const TablePontodeVendas = () => {
           </form>
         )}
         <br />
-        {error && <p className={style.error}>{error}</p>}
-        {!error && (
+        
           <table>
             <thead>
               <tr className={style.title_table}>
@@ -67,8 +86,8 @@ const TablePontodeVendas = () => {
               </tr>
             </thead>
             <tbody>
-              {items &&
-                items.map((pointofsales) => (
+              {item &&
+                item.map((pointofsales) => (
                   <tr key={pointofsales.id}>
                     <td>{pointofsales.id}</td>
                     <td>{pointofsales.nome}</td>
@@ -94,7 +113,7 @@ const TablePontodeVendas = () => {
               </tr>
             </tfoot>
           </table>
-        )}
+       
       </div>
     </section>
   );

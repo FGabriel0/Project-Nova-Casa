@@ -2,9 +2,10 @@ import React from 'react'
 import style from './NewPontodeVendas.module.css'
 import { useState,useRef} from "react";
 import { useNavigate } from 'react-router-dom';
-import { useFetch } from '../../hooks/useFetch';
 
-const url = "http://localhost:3000/pontodevendas";
+import { ValidarPontodeVenda } from '../../service/ValidarPontodeVenda';
+import { post } from '../../service/ApiService';
+import { mensagemSucesso,mensagemErro } from '../../components/notificationToastr/toastr';
 
 
 const NewPontodeVendas = () => {
@@ -12,27 +13,32 @@ const NewPontodeVendas = () => {
     const navigate = useNavigate()
 
     const [nome,setNome] = useState("");
-    const [menssage, setMenssage] = useState("");
 
 
-    const { data: items, httpConfig, loading, error } = useFetch(url);
 
     const handlerSubmit = async (e) =>{
         e.preventDefault()
     
-        const pontodevendas ={
-          nome
-        }
-    
-        await httpConfig(pontodevendas,"POST");
+        const errorEncontrados = ValidarPontodeVenda(nome);
 
-        const validar = inputRef.current.checkValidity();
-        if (validar) {
-          setMenssage("Novo Pagamento Finalizada");
-          navigate("/pointofsales");
+        if (Object.keys(errorEncontrados).length > 0) {
+          errorEncontrados.forEach((msg, index) => {
+            mensagemErro(msg);
+          });
+          return;
         }
     
-        setNome("")
+        try {
+          const response = await post("/api/pontodevenda", {
+            nome: nome,
+          });
+          mensagemSucesso("Ponto de Venda Salvo Com Sucesso");
+          navigate("/pointofsales");
+        } catch (error) {
+          if (error.response && error.response.data) {
+            mensagemErro(error.response.data);
+          }
+        }
       }
 
   return (
@@ -48,18 +54,9 @@ const NewPontodeVendas = () => {
                 required
                 onChange={(e) => setNome(e.target.value)}
               />
-            </label>
-            {loading && (
-              <input
-                type="submit"
-                value="Aguarde"
-                className={style.btn}
-                disabled
-              />
-            )}
-            {!loading && (
-              <input type="submit" value="Salvar" className={style.btn} />
-            )}
+            </label>           
+            <input type="submit" value="Salvar" className={style.btn} />
+           
           </form>
   )
 }

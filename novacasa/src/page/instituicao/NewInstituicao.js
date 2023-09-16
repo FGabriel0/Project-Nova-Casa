@@ -1,10 +1,12 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
+import { ValidarInstituicao } from "../../service/ValidarInstituicao";
+import { post } from "../../service/ApiService";
 import style from "./NewInstituicao.module.css";
+import { mensagemSucesso,mensagemErro } from "../../components/notificationToastr/toastr";
 
-const url = "http://localhost:3000/instituicao";
+
 
 const NewInstituicao = () => {
   const navigate = useNavigate()
@@ -13,27 +15,32 @@ const NewInstituicao = () => {
   const [nome, setNome] = useState("");
   const [fone, setFone] = useState("");
 
-  const { data: items, httpConfig, loading, error } = useFetch(url);
-  const [menssage, setMenssage] = useState("");
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
 
-    const instituicao = {
-      nome,
-      fone,
-    };
+    const errorEncontrados = ValidarInstituicao(nome, fone);
 
-    httpConfig(instituicao, "POST");
-
-    const validar = inputRef.current.checkValidity();
-    if (validar) {
-      setMenssage("Novo Instituição Finalizada");
-      navigate("/instituicao")
+    if (Object.keys(errorEncontrados).length > 0) {
+      errorEncontrados.forEach((msg, index) => {
+        mensagemErro(msg);
+      });
+      return;
     }
 
-    setFone("");
-    setNome("");
+    try {
+      const response = await post("/api/instituicao", {
+        nome: nome,
+        fone: fone
+      });
+      mensagemSucesso("Instituição Salvo Com Sucesso");
+      navigate("/instituicao");
+    } catch (error) {
+      if (error.response && error.response.data) {
+        mensagemErro(error.response.data);
+      }
+    }
+
   };
   return (
     <form className={style.form} onSubmit={handlerSubmit}>
@@ -45,7 +52,7 @@ const NewInstituicao = () => {
           value={nome}
           ref={inputRef}
           placeholder="Digite o nome:"
-          required
+          
           onChange={(e) => setNome(e.target.value)}
         />
       </label>
@@ -54,18 +61,14 @@ const NewInstituicao = () => {
         Telefone:
         <input
           ref={inputRef}
-          type="number"
-          placeholder="ex. (99) 99999-9999"
+          type="text"
+          placeholder="ex. (99) 9 12345678"
           value={fone}
           onChange={(e) => setFone(e.target.value)}
-          required
+          
         />
-      </label>
-      {loading && (
-        <input type="submit" value="Aguarde" className={style.btn} disabled />
-      )}
-      {!loading && <input type="submit" value="Salvar" className={style.btn} />}
-      {menssage && <p className="confirm">{menssage}</p>}
+      </label>      
+      <input type="submit" value="Salvar" className={style.btn} />
     </form>
   );
 };

@@ -2,84 +2,76 @@ import React from "react";
 import style from "./EditInstituicao.module.css";
 import { SidebarContext } from "../../context/SidebarContext";
 
-import { useParams } from "react-router-dom";
-import { useState, useEffect, useRef,useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef, useContext } from "react";
 import { useFetch } from "../../hooks/useFetch";
+import { put, get } from "../../service/ApiService";
 import Sidebar from "../../components/Sidebar";
+import Loading from "../../components/Loading";
+import {
+  mensagemErro,
+  mensagemSucesso,
+} from "../../components/notificationToastr/toastr";
 
 const EditInstituicao = () => {
   const { id } = useParams();
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
-  const url = `http://localhost:3000/instituicao/${id}`;
-
-  const {sidebarActive} = useContext(SidebarContext)
-  const [editInstituicao, setEditInstituicao] = useState([]);
+  const { sidebarActive } = useContext(SidebarContext);
+  const [dados, setDados] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [menssage, setMenssage] = useState("");
-
-  const { data, loading, httpConfig } = useFetch(url);
 
   const [nome, setNome] = useState("");
   const [fone, setFone] = useState("");
-
-
-
-  useEffect(() => {
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setEditInstituicao(data);
-      })
-      .catch((error) => console.log(error));
-  }, [id]);
 
   function handlerEditForm() {
     setShowEditForm(!showEditForm);
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await get(`/api/instituicao/${id}`);
+        const responseData = response.data;
+        setDados(responseData);
+      } catch (error) {
+        console.log("Erro na busca dos Dados", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   const handlerSubmit = async (e) => {
     e.preventDefault();
 
-    const sair = window.confirm(
-      "Deseja Realmente essa Editar essa Instituição?"
-    );
-    if (sair) {
-      const instituicao = {
-        nome,
-        fone,
-      };
+    const campos = {
+      nome,
+      fone,
+    };
 
-      const validar = inputRef.current.checkValidity();
-      if (validar) {
-        setMenssage("Edição Finalizada");
-      }
-      setNome("");
-      setFone("");
+    try {
+      const res = await put(`/api/instituicao/${id}`, campos);
 
-      await httpConfig(instituicao, "PUT");
-
-      if (typeof window !== 'undefined' && window.location) {
-        window.location.reload();
-      }
-
+      mensagemSucesso("Instituição Atualizada");
+      navigate("/instituicao");
+    } catch (error) {
+      mensagemErro("Erro ao Atualizar os Dados");
     }
   };
+
   return (
     <section className={style.container}>
-      <Sidebar/>
+      <Sidebar />
       <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <div>
-          <h1>Instituição: {editInstituicao.nome}</h1>
+          <h1>Instituição: {dados.nome}</h1>
           <hr />
           <button>Pesquisa</button>
           <button>Novo</button>
-          {!loading && (
+
+          {<Loading /> && (
             <button onClick={handlerEditForm}>
               {!showEditForm ? "Editar" : "Fechar"}
             </button>
@@ -88,20 +80,16 @@ const EditInstituicao = () => {
           {!showEditForm ? (
             <div className={style.infor}>
               <hr />
-              {loading ? (
-                <p>Carregando Dados...</p>
-              ) : (
-                <div>
-                  <p>
-                    <span>Nome: </span>
-                    {editInstituicao.nome}
-                  </p>
-                  <p>
-                    <span>Telefone: </span>
-                    {editInstituicao.fone}
-                  </p>
-                </div>
-              )}
+              <div>
+                <p>
+                  <span>Nome: </span>
+                  {dados.nome}
+                </p>
+                <p>
+                  <span>Telefone: </span>
+                  {dados.fone}
+                </p>
+              </div>
             </div>
           ) : (
             <div className={style.form}>
@@ -113,7 +101,6 @@ const EditInstituicao = () => {
                     value={nome}
                     ref={inputRef}
                     placeholder="Digite o nome:"
-                    required
                     onChange={(e) => setNome(e.target.value)}
                   />
                 </label>
@@ -121,24 +108,14 @@ const EditInstituicao = () => {
                 <label>
                   <span>Telefone:</span>
                   <input
-                    type="number"
+                    type="text"
                     placeholder="ex. (99) 99999-9999"
                     ref={inputRef}
                     value={fone}
                     onChange={(e) => setFone(e.target.value)}
-                    required
                   />
                 </label>
-                {loading && (
-                  <input
-                    type="submit"
-                    value="Aguarde"
-                    className={style.btn}
-                    disabled
-                  />
-                )}
-                {!loading && <input type="submit" value="Editar" className="btn"/>}
-                {menssage && <p className="confirm">{menssage}</p>}
+                <input type="submit" value="Editar" className="btn" />
               </form>
             </div>
           )}

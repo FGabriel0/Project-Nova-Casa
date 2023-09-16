@@ -1,78 +1,75 @@
 import React from "react";
 
-import { useParams } from "react-router-dom";
-import { useState, useEffect, useRef,useContext } from "react";
-import { useFetch } from "../../hooks/useFetch";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef, useContext } from "react";
+import { get, put } from "../../service/ApiService";
+import {
+  mensagemSucesso,
+  mensagemErro,
+} from "../../components/notificationToastr/toastr";
 import { SidebarContext } from "../../context/SidebarContext";
 import style from "./EditTablePontodeVendas.module.css";
+import Loading from "../../components/Loading";
 
 const EditTablePontodeVendas = () => {
   const { id } = useParams();
-  const {sidebarActive} = useContext(SidebarContext)
-  const url = `http://localhost:3000/pontodevendas/${id}`;
+  const { sidebarActive } = useContext(SidebarContext);
 
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
-  const [editPontodeVendas, setEditPontodeVendas] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [menssage, setMenssage] = useState("");
-
-  const { loading, httpConfig } = useFetch(url);
+  const [dados, setDados] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const [nome, setNome] = useState("");
-
-  useEffect(() => {
-    const url = `http://localhost:3000/pontodevendas/${id}`;
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setEditPontodeVendas(data);
-      })
-      .catch((error) => console.log(error));
-  }, [id]);
 
   function handlerEditForm() {
     setShowEditForm(!showEditForm);
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await get(`/api/instituicao/${id}`);
+        const responseData = response.data;
+        setDados(responseData);
+        setLoading(false);
+      } catch (error) {
+        console.log("Erro na busca dos Dados", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   const handlerSubmit = async (e) => {
     e.preventDefault();
 
-    const sair = window.confirm(
-      "Deseja Realmente essa Editar essa Instituição?"
-    );
-    if (sair) {
-      const pontodevendas = {
-        nome,
-      };
+    const campos = {
+      nome,
+    };
 
-      const validar = inputRef.current.checkValidity();
-      if (validar) {
-        setMenssage("Edição Finalizada");
-      }
-      setNome("");
+    try {
+      const res = await put(`/api/pontodevenda/${id}`, campos);
 
-      await httpConfig(pontodevendas, "PUT");
-
-      if (typeof window !== "undefined" && window.location) {
-        window.location.reload();
-      }
+      mensagemSucesso("Ponto de Venda Atualizada");
+      navigate("/pointofsales");
+    } catch (error) {
+      mensagemErro("Erro ao Atualizar os Dados");
     }
   };
   return (
     <section className={style.container}>
       <div className={`${style.box} ${sidebarActive ? style.active : ""}`}>
         <div>
-          <h1>Ponto de Venda: {editPontodeVendas.nome}</h1>
+          <h1>Ponto de Venda: {dados.nome}</h1>
           <hr />
           <button>Pesquisa</button>
           <button>Novo</button>
-          {!loading && (
+          {loading ? (
+            <Loading />
+          ) : (
             <button onClick={handlerEditForm}>
               {!showEditForm ? "Editar" : "Fechar"}
             </button>
@@ -82,12 +79,12 @@ const EditTablePontodeVendas = () => {
             <div className={style.infor}>
               <hr />
               {loading ? (
-                <p>Carregando Dados...</p>
+                <Loading />
               ) : (
                 <div>
                   <p>
                     <span>Nome: </span>
-                    {editPontodeVendas.nome}
+                    {dados.nome}
                   </p>
                 </div>
               )}
@@ -107,18 +104,8 @@ const EditTablePontodeVendas = () => {
                   />
                 </label>
 
-                {loading && (
-                  <input
-                    type="submit"
-                    value="Aguarde"
-                    className={style.btn}
-                    disabled
-                  />
-                )}
-                {!loading && (
                   <input type="submit" value="Editar" className="btn" />
-                )}
-                {menssage && <p className="confirm">{menssage}</p>}
+               
               </form>
             </div>
           )}

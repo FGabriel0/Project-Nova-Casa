@@ -7,7 +7,7 @@ export const validar = (nome,email,senha,confirmPassword) => {
     }
     if (!email) {
        msg.push("\nO campo Email é obrigatório\n");
-    } else if (email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+    } else if (email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)) {
        msg.push("Por favor,insira um E-mail válido\n");
     }
 
